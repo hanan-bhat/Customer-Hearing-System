@@ -78,18 +78,6 @@ onMounted(() => {
               ? issue[0].description
               : 'No description available'
           }}
-          <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-          corporis consequuntur, cumque tempora mollitia facilis reiciendis
-          laboriosam dolore harum quibusdam provident fuga, amet fugiat?
-          Voluptates nemo pariatur numquam perferendis dolor quisquam suscipit
-          aliquid voluptatum at deleniti ullam nobis veniam impedit, optio
-          ipsum? Commodi expedita cupiditate tenetur officiis odio eius vel
-          dolorem quia excepturi praesentium veritatis facere eaque molestias,
-          maxime soluta incidunt natus nobis veniam quos odit voluptatibus illo
-          velit sunt! Est minima ex libero error? Quasi quos eligendi
-          dignissimos rerum asperiores inventore labore repellat magnam sapiente
-          impedit, nesciunt, incidunt similique veniam et nisi harum? Vitae ea
-          iusto aliquid beatae quisquam? -->
         </p>
       </div>
       <div class="mt-6">

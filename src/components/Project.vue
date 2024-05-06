@@ -13,40 +13,15 @@ const project = reactive([])
 
 onMounted(() => {
   if (store?.state?.projects?.length) {
-    //   if (store.state.issues.length) {
     project.push(
       store.state.projects[0].find(
         (project) => project.id === Number(router.currentRoute.value.query.id)
       )
     )
-
-    // fetch(project[0]._links.issues).then(async (res) => {
-    //   const response = await res.json()
-    //   console.log('ISUESSSSS', response)
-    // })
-    // store.actions.getIssues(project[0]._links.issues)
-    // store.actions.getIssues(project._links.issues)
-    // store.actions.getIssues(project[0]._links.issues)
-
-    // @click="store.actions.getIssues(project._links.issues)"
-    console.log('CHECK ISSUES: ', store.state.issues)
-    console.log('ISSUES Length: ', store.state.issues.length)
   } else {
     router.push({ path: '/' })
   }
 })
-
-// const getBackgroundColor = () => {
-//   // return `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
-//   //   Math.random() * 255
-//   // )}, ${Math.floor(Math.random() * 255)}, 0.2)`
-
-//   'backgroundColor': '$ff0'
-// }
-
-console.log('DATA FROM STORE ISSUESSS: ', store.state)
-
-// console.log(parseISOString('2024-04-29T09:45:07.899Z').toISOString())
 </script>
 
 <template>

@@ -1,6 +1,6 @@
-<script setup>
+<!-- <script setup>
 import Project from './Project.vue'
-import { onMounted, reactive } from 'vue'
+import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
   LockClosedIcon,
@@ -10,14 +10,11 @@ import {
 import store from '@/store'
 import moment from 'moment'
 
-const projects = reactive([])
-const issues = reactive([])
-
 const toolTipForPrivate = 'Hello World'
 
 onMounted(() => {
   store.actions.getAllProjects()
-  store.actions.getUser()
+  store.actions.getAllIssues()
 })
 </script>
 
@@ -27,7 +24,7 @@ onMounted(() => {
       <div class="text-sm breadcrumbs">
         <ul>
           <li><a>Your work</a></li>
-          <li class="font-semibold">Projects</li>
+          <li class="font-semibold">All Issues</li>
         </ul>
       </div>
     </div>
@@ -121,4 +118,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->
+<template>
+  <h1>Hello</h1>
+</template>

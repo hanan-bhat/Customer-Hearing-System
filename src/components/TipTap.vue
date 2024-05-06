@@ -183,6 +183,7 @@ const getComment = () => {
     <button
       class="mt-3 btn bg-[rgba(65,138,158,0.8)] text-white hover:text-black"
       @click="getComment()"
+      :disabled="store.state.loading"
     >
       Comment
     </button>

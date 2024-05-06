@@ -1,84 +1,93 @@
 import { reactive, readonly } from 'vue'
 
-// const state = reactive({
-//   test: [],
-// })
-
 const state = reactive({
   projects: [],
   issues: [],
   notes: [],
+  user: [],
+  loading: false,
 })
+
+const headers = {
+  Authorization: 'Bearer glpat-vxtbesvhKa2c8uBsRESs',
+  'Content-type': 'application/json; charset=UTF-8',
+}
 
 export default {
   state: readonly(state),
   actions: {
     getAllProjects() {
-      const headers = {
-        Authorization: 'Bearer glpat-vxtbesvhKa2c8uBsRESs',
+      try {
+        fetch('https://gitlab.com/api/v4/projects?owned=true', {
+          headers,
+        }).then(async (res) => {
+          const response = await res.json()
+          state.projects.push(response)
+        })
+      } catch (error) {
+        console.log(error)
       }
-      fetch('https://gitlab.com/api/v4/projects?owned=true', {
-        headers,
-      }).then(async (res) => {
-        const response = await res.json()
-        state.projects.push(response)
-        console.log('STOREEEE', response)
-        // console.log(response)
-      })
+    },
+    getUser() {
+      try {
+        fetch('https://gitlab.com/api/v4/user', {
+          headers,
+        }).then(async (res) => {
+          const response = await res.json()
+          state.user.push(response)
+        })
+      } catch (error) {
+        console.log(error)
+      }
     },
     getIssues(issueLink) {
       state.issues = []
-      const headers = {
-        Authorization: 'Bearer glpat-vxtbesvhKa2c8uBsRESs',
+      try {
+        fetch(issueLink, {
+          headers,
+        }).then(async (res) => {
+          const response = await res.json()
+          state.issues.push(response)
+        })
+      } catch (error) {
+        console.log(error)
       }
-      fetch(issueLink, {
-        headers,
-      }).then(async (res) => {
-        const response = await res.json()
-        state.issues.push(response)
-        console.log('ISSSUUEESSSSS STATE', response)
-        // console.log(response)
-      })
     },
     getNotes(notesLink) {
       state.notes = []
-      const headers = {
-        Authorization: 'Bearer glpat-vxtbesvhKa2c8uBsRESs',
+      try {
+        fetch(notesLink, {
+          headers,
+        }).then(async (res) => {
+          const response = await res.json()
+          state.notes.push(response.reverse())
+        })
+      } catch (error) {
+        console.log(error)
       }
-      fetch(notesLink, {
-        headers,
-      }).then(async (res) => {
-        const response = await res.json()
-        state.notes.push(response.reverse())
-        // state.notes.push(response.filter((elm) => elm.type !== null))
-        // state.issues.push(dataNotNull)
-        console.log('ISSSUUEESSSSS Notes', response)
-        // console.log(response)
-      })
     },
     setNote(comment, projectId, issueIId, issueLink) {
-      //   POST /projects/:id/issues/:issue_iid/notes
-      const headers = {
-        Authorization: 'Bearer glpat-vxtbesvhKa2c8uBsRESs',
-        'Content-type': 'application/json; charset=UTF-8',
+      try {
+        state.loading = true
+        fetch(
+          `https://gitlab.com/api/v4/projects/${projectId}/issues/${issueIId}/notes`,
+          {
+            headers,
+            method: 'POST',
+            body: JSON.stringify({
+              body: comment,
+            }),
+          }
+        )
+          .then(async (res) => {
+            res.json()
+          })
+          .then(() => this.getNotes(issueLink))
+      } catch (error) {
+        console.log(error)
+      } finally {
+        state.loading = false
       }
-      fetch(
-        `https://gitlab.com/api/v4/projects/${projectId}/issues/${issueIId}/notes`,
-        {
-          headers,
-          method: 'POST',
-          body: JSON.stringify({
-            body: comment,
-          }),
-        }
-      )
-        .then(async (res) => {
-          res.json()
-          // state.notes.push(res.json())
-        })
-        .then(() => this.getNotes(issueLink))
-
-      //   console.log('COMMENTTTTTT API: ', comment, projectId, issueIId)
     },
   },
 }
