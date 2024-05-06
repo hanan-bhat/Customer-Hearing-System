@@ -53,6 +53,19 @@ export default {
         console.log(error)
       }
     },
+    getAllIssues() {
+      state.issues = []
+      try {
+        fetch('https://gitlab.com/api/v4/issues', {
+          headers,
+        }).then(async (res) => {
+          const response = await res.json()
+          state.issues.push(response)
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    },
     getNotes(notesLink) {
       state.notes = []
       try {

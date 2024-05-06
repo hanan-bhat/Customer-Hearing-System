@@ -1,7 +1,6 @@
 <script setup>
 import store from '@/store'
 import { SwatchIcon, RectangleStackIcon } from '@heroicons/vue/24/outline'
-import { RouterLink } from 'vue-router'
 </script>
 <template>
   <div class="w-80 h-screen">
@@ -47,13 +46,11 @@ import { RouterLink } from 'vue-router'
           <RouterLink to="/"
             ><swatch-icon class="icon w-5" />Projects</RouterLink
           >
-          <!-- <ul>
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul> -->
         </li>
         <li>
-          <a><rectangle-stack-icon class="icon w-5" /> Issues</a>
+          <RouterLink to="/allissues"
+            ><rectangle-stack-icon class="icon w-5" /> Issues</RouterLink
+          >
         </li>
       </ul>
     </div>

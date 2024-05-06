@@ -1,24 +1,4 @@
-<!-- <script setup>
-import { useEditor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-
-const editor = useEditor({
-  editorProps: {
-    attributes: {
-      class: 'border border-slate-200 p-4 h-[12rem] overflow-y-auto',
-    },
-  },
-  content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
-  extensions: [StarterKit],
-})
-</script>
-
-<template>
-  <editor-content :editor="editor" />
-</template> -->
-
 <script setup>
-// import { Head, Link, useForm } from '@inertiajs/vue3'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -67,10 +47,7 @@ const editor = useEditor({
 })
 const getComment = () => {
   store.actions.setNote(commentData, projectID, iid, props.issueLink)
-  //   console.log(props.issueLink)
 }
-
-// console.log(editor)
 </script>
 
 <template>
@@ -183,7 +160,7 @@ const getComment = () => {
     <button
       class="mt-3 btn bg-[rgba(65,138,158,0.8)] text-white hover:text-black"
       @click="getComment()"
-      :disabled="store.state.loading"
+      :disabled="store.state.loading || !commentData.length"
     >
       Comment
     </button>
