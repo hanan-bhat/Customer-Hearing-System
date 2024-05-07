@@ -16,9 +16,10 @@ const headers = {
 export default {
   state: readonly(state),
   actions: {
-    getAllProjects() {
+    async getAllProjects() {
       try {
-        fetch('https://gitlab.com/api/v4/projects?owned=true', {
+        await fetch('https://gitlab.com/api/v4/projects?owned=true', {
+          method: 'GET',
           headers,
         }).then(async (res) => {
           const response = await res.json()
@@ -28,9 +29,10 @@ export default {
         console.log(error)
       }
     },
-    getUser() {
+    async getUser() {
       try {
-        fetch('https://gitlab.com/api/v4/user', {
+        await fetch('https://gitlab.com/api/v4/user', {
+          method: 'GET',
           headers,
         }).then(async (res) => {
           const response = await res.json()
@@ -40,10 +42,11 @@ export default {
         console.log(error)
       }
     },
-    getIssues(issueLink) {
+    async getIssues(issueLink) {
       state.issues = []
       try {
-        fetch(issueLink, {
+        await fetch(issueLink, {
+          method: 'GET',
           headers,
         }).then(async (res) => {
           const response = await res.json()
@@ -53,10 +56,11 @@ export default {
         console.log(error)
       }
     },
-    getAllIssues() {
+    async getAllIssues() {
       state.issues = []
       try {
-        fetch('https://gitlab.com/api/v4/issues', {
+        await fetch('https://gitlab.com/api/v4/issues', {
+          method: 'GET',
           headers,
         }).then(async (res) => {
           const response = await res.json()
@@ -66,10 +70,11 @@ export default {
         console.log(error)
       }
     },
-    getNotes(notesLink) {
+    async getNotes(notesLink) {
       state.notes = []
       try {
-        fetch(notesLink, {
+        await fetch(notesLink, {
+          method: 'GET',
           headers,
         }).then(async (res) => {
           const response = await res.json()
@@ -79,10 +84,10 @@ export default {
         console.log(error)
       }
     },
-    setNote(comment, projectId, issueIId, issueLink) {
+    async setNote(comment, projectId, issueIId, issueLink) {
       try {
         state.loading = true
-        fetch(
+        await fetch(
           `https://gitlab.com/api/v4/projects/${projectId}/issues/${issueIId}/notes`,
           {
             headers,
