@@ -114,8 +114,19 @@ onMounted(() => {
           </tbody>
         </table>
       </div>
-      <div v-else class="h-60 flex justify-center align-middle">
-        <span class="loading loading-bars loading-lg"></span>
+      <div v-else>
+        <div
+          class="flex flex-row gap-10 w-full mb-5"
+          v-for="index in 5"
+          :key="index"
+        >
+          <div class="skeleton w-20 h-20"></div>
+          <div class="skeleton h-4 w-80 my-auto mr-40"></div>
+          <div class="my-auto">
+            <div class="skeleton h-4 w-20 mb-1"></div>
+            <div class="skeleton h-4 w-48 my-auto"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

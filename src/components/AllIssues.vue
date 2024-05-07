@@ -32,7 +32,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="h-screen bg-white p-4">
-      <div>
+      <div v-if="store?.state?.issues[0]?.length">
         <div class="overflow-x-auto">
           <table class="table">
             <thead>
@@ -45,7 +45,7 @@ onMounted(() => {
                 </th>
               </tr>
             </thead>
-            <tbody v-if="store?.state?.issues[0]?.length">
+            <tbody>
               <tr v-for="issue in store.state.issues[0]" :key="issue.id">
                 <td>
                   <div class="avatar placeholder">
@@ -121,12 +121,25 @@ onMounted(() => {
                 </td>
               </tr>
             </tbody>
-            <tbody v-else>
-              <div class="h-60 flex justify-center align-middle">
-                <span class="loading loading-bars loading-lg"></span>
-              </div>
-            </tbody>
           </table>
+        </div>
+      </div>
+      <div v-else>
+        <div
+          class="flex flex-row gap-10 w-full mb-5 mt-5"
+          v-for="index in 5"
+          :key="index"
+        >
+          <div class="skeleton w-20 h-20"></div>
+          <div class="my-auto">
+            <div class="skeleton h-4 w-80 mr-40 mb-1"></div>
+            <div class="skeleton h-4 w-80 mr-40 mb-1"></div>
+            <div class="skeleton h-4 w-80 mr-40"></div>
+          </div>
+          <div class="my-auto">
+            <div class="skeleton h-4 w-20 mb-1"></div>
+            <div class="skeleton h-4 w-48 my-auto"></div>
+          </div>
         </div>
       </div>
     </div>

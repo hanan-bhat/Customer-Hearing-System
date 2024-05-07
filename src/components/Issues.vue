@@ -122,9 +122,22 @@ onMounted(() => {
             <tip-tap :issueLink="issue[0]._links.notes" />
           </div>
         </div>
-        <div v-else>
+        <!-- <div v-else>
           <div class="h-60 flex justify-center align-middle">
             <span class="loading loading-bars loading-lg"></span>
+          </div>
+        </div> -->
+        <div v-else class="mt-5">
+          <div
+            class="flex flex-row gap-10 w-full mb-5"
+            v-for="index in 5"
+            :key="index"
+          >
+            <div class="skeleton w-20 h-20"></div>
+            <div class="my-auto">
+              <div class="skeleton h-4 w-80 mr-40 mb-1"></div>
+              <div class="skeleton h-4 w-80 mr-40"></div>
+            </div>
           </div>
         </div>
       </div>

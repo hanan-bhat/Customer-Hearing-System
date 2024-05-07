@@ -41,7 +41,7 @@ const editor = useEditor({
   editorProps: {
     attributes: {
       class:
-        'rounded-b-xl border border-slate-200 p-4 min-h-[12rem] max-h-[12rem] overflow-y-auto outline-none prose max-w-none',
+        'rounded-b-xl border border-slate-200 p-4 min-h-[7rem] max-h-[7rem] overflow-y-auto outline-none prose max-w-none',
     },
   },
 })
