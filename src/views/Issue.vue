@@ -6,7 +6,7 @@ import Issues from '../components/Issues.vue'
 <template>
   <div class="bg-[#F2F1F4]">
     <div class="flex gap-0.5">
-      <SideBar />
+      <!-- <SideBar /> -->
       <Issues />
     </div>
   </div>

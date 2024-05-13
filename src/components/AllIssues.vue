@@ -20,12 +20,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-[90%] grid grid-rows-1 gap-0.5">
+  <div class="w-full grid grid-rows-1 gap-0.5">
     <div class="navbar bg-base-100 px-10">
       <div class="text-sm breadcrumbs">
         <ul>
           <li>
-            <a>Your work</a>
+            <RouterLink to="/">Your work</RouterLink>
           </li>
           <li class="font-semibold">All Issues</li>
         </ul>

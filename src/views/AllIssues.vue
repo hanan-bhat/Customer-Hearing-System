@@ -6,7 +6,7 @@ import AllIssues from '../components/AllIssues.vue'
 <template>
   <div class="bg-[#F2F1F4]">
     <div class="flex gap-0.5">
-      <SideBar />
+      <!-- <SideBar /> -->
       <AllIssues />
     </div>
   </div>

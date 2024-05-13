@@ -34,12 +34,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="project.length" class="w-[90%] grid grid-rows-1 gap-0.5">
+  <div v-if="project.length" class="w-full grid grid-rows-1 gap-0.5">
     <div class="navbar bg-base-100 px-10">
       <div class="text-sm breadcrumbs">
         <ul>
           <li>
-            <a>{{ project[0]?.path_with_namespace?.split('/')[0] }}</a>
+            <RouterLink to="/">{{
+              project[0]?.path_with_namespace?.split('/')[0]
+            }}</RouterLink>
           </li>
           <li>{{ project[0]?.name }}</li>
           <li class="font-semibold">Issue</li>

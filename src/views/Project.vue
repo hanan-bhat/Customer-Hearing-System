@@ -6,7 +6,7 @@ import SideBar from '../components/SideBar.vue'
 <template>
   <div class="bg-[#F2F1F4]">
     <div class="flex gap-0.5">
-      <SideBar />
+      <!-- <SideBar /> -->
       <Project />
     </div>
   </div>

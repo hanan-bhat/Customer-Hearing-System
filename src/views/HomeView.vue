@@ -6,7 +6,7 @@ import Projects from '../components/Projects.vue'
 <template>
   <div class="bg-[#F2F1F4]">
     <div class="flex gap-0.5">
-      <SideBar />
+      <!-- <SideBar /> -->
       <Projects />
     </div>
   </div>
