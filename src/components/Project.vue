@@ -22,6 +22,7 @@ onMounted(() => {
     router.push({ path: '/' })
   }
 })
+
 </script>
 
 <template>
