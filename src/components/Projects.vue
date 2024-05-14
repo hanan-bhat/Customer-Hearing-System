@@ -13,7 +13,7 @@ import moment from 'moment'
 const route = useRoute();
 const router = useRouter(); 
     const account = route.query.account;
-    const projectParam = route.query.project;
+    const projectParam = route.query.project || 'New Proj';
 
 
 const projects = reactive([])
@@ -25,7 +25,6 @@ onMounted(async () => {
       // Assuming store.actions.getAllProjects() returns a Promise
   
       await store.actions.getAllProjects();
-      await store.actions.getAllIssues();
 
 
 const filteredProject = store.state.projects[0].find(project => {
@@ -44,6 +43,7 @@ const filteredProject = store.state.projects[0].find(project => {
           path: `/project/${filteredProject.name.toLowerCase().replace(/\s+/g, '-')}`,
           query: { id: filteredProject.id }
         });
+        store.actions.getIssues(filteredProject._links.issues)
       } else {
         console.error('Project not found');
       }

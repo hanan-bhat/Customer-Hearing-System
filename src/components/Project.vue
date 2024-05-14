@@ -54,7 +54,7 @@ onMounted(() => {
             }"
           >
             <span class="text-3xl">{{
-              project[0].name.substring(0, 1).toUpperCase()
+              project[0]?.name.substring(0, 1).toUpperCase()
             }}</span>
           </div>
         </div>
