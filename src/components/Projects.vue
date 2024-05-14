@@ -48,6 +48,12 @@ onMounted(async () => {
   } else {
     console.error('Project not found')
   }
+
+  store.actions.setUserParams(
+    route.query.project,
+    route.query.author,
+    route.query.tenant
+  )
 })
 </script>
 

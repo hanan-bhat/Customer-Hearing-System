@@ -58,8 +58,12 @@ const getComment = () => {
 }
 
 onMounted(() => {
+  // frontMatter.value = `
+  //   tenant: ${'iRidge inc'}, author: ${'Motohiro Ueki'}
+  // `
+
   frontMatter.value = `
-    tenant: ${'iRidge inc'}, author: ${'Motohiro Ueki'}
+    tenant: ${store.state.userParams.tenant}, author: ${store.state.userParams.author}
   `
 })
 </script>

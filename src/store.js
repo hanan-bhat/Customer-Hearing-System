@@ -1,11 +1,14 @@
 import { reactive, readonly } from 'vue'
+import { parseYAMLWithoutSpaces } from './utils/yamlDataExtraction'
 
 const state = reactive({
   projects: [],
   issues: [],
   notes: [],
+  notesWithEye: [],
   user: [],
   loading: false,
+  userParams: {},
 })
 
 const headers = {
@@ -79,6 +82,20 @@ export default {
         }).then(async (res) => {
           const response = await res.json()
           state.notes.push(response.reverse())
+          await response.map((note) =>
+            fetch(`${notesLink}/${note.id}/award_emoji`, {
+              method: 'GET',
+              headers,
+            }).then(async (res) => {
+              const response = await res.json()
+              if (response.length > 0) {
+                const noteWithEye = state.notes[0].find(
+                  (elm) => elm.id === note.id
+                )
+                noteWithEye.visible = true
+              }
+            })
+          )
         })
       } catch (error) {
         console.log(error)
@@ -87,15 +104,15 @@ export default {
     async setNote(comment, projectId, issueIId, issueLink, frontMatter) {
       try {
         state.loading = true
-        // console.log('COMMENT: ', projectId, issueIId, issueLink)
-        // return
+        const checkFrontMatter = parseYAMLWithoutSpaces(frontMatter)
         await fetch(
           `https://gitlab.com/api/v4/projects/${projectId}/issues/${issueIId}/notes`,
           {
             headers,
             method: 'POST',
             body:
-              frontMatter.length > 0
+              checkFrontMatter.author !== 'undefined' ||
+              checkFrontMatter.tenant !== 'undefined'
                 ? JSON.stringify({
                     body: `--- ${frontMatter} --- ${comment}`,
                   })
@@ -112,6 +129,14 @@ export default {
         console.log(error)
       } finally {
         state.loading = false
+      }
+    },
+    setUserParams(project, author, tenant) {
+      state.userParams = {}
+      state.userParams = {
+        project,
+        author,
+        tenant,
       }
     },
   },

@@ -22,7 +22,6 @@ onMounted(() => {
     router.push({ path: '/' })
   }
 })
-
 </script>
 
 <template>
@@ -30,12 +29,14 @@ onMounted(() => {
     <div class="navbar bg-base-100 px-10">
       <div class="text-sm breadcrumbs">
         <ul>
-          <li>
+          <!-- <li>
             <RouterLink to="/">{{
               project[0]?.path_with_namespace?.split('/')[0]
             }}</RouterLink>
+          </li> -->
+          <li>
+            <RouterLink to="/">{{ project[0]?.name }}</RouterLink>
           </li>
-          <li>{{ project[0]?.name }}</li>
           <li class="font-semibold">Issues</li>
         </ul>
       </div>
@@ -149,8 +150,20 @@ onMounted(() => {
               </tr>
             </tbody>
             <tbody v-else>
-              <div class="h-60 flex justify-center align-middle">
-                <span class="loading loading-bars loading-lg"></span>
+              <div
+                class="flex flex-row gap-10 w-full mb-5 mt-5"
+                v-for="index in 5"
+                :key="index"
+              >
+                <div class="skeleton w-20 h-20"></div>
+                <div class="my-auto">
+                  <div class="skeleton h-4 w-80 my-auto mr-40 mb-1"></div>
+                  <div class="skeleton h-4 w-80 my-auto mr-40"></div>
+                </div>
+                <div class="my-auto">
+                  <div class="skeleton h-4 w-20 mb-1"></div>
+                  <div class="skeleton h-4 w-48 my-auto"></div>
+                </div>
               </div>
             </tbody>
           </table>

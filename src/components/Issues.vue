@@ -38,6 +38,8 @@ onMounted(() => {
     router.push({ path: '/' })
   }
 })
+
+console.log('COMMENTS: ', store.state)
 </script>
 
 <template>
@@ -45,12 +47,14 @@ onMounted(() => {
     <div class="navbar bg-base-100 px-10">
       <div class="text-sm breadcrumbs">
         <ul>
-          <li>
+          <!-- <li>
             <RouterLink to="/">{{
               project[0]?.path_with_namespace?.split('/')[0]
             }}</RouterLink>
+          </li> -->
+          <li>
+            <RouterLink to="/">{{ project[0]?.name }}</RouterLink>
           </li>
-          <li>{{ project[0]?.name }}</li>
           <li class="font-semibold">Issue</li>
         </ul>
       </div>
@@ -109,12 +113,10 @@ onMounted(() => {
               <div class="w-full border-[0.5px] rounded-md border-slate-200">
                 <div class="min-h-14 w-full p-2">
                   <div class="flex gap-1">
-                    <span class="text-sm font-semibold"
-                      >@{{
-                        parseYAMLWithoutSpaces(extractYamlFromString(note.body))
-                          .tenant
-                      }}</span
-                    >
+                    <span class="text-sm font-semibold">{{
+                      parseYAMLWithoutSpaces(extractYamlFromString(note.body))
+                        .tenant
+                    }}</span>
 
                     <span class="text-slate-500 text-sm"
                       >@{{
@@ -135,31 +137,34 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-
-            <div v-else class="my-4 flex gap-5">
-              <div class="avatar">
-                <div class="max-h-10 w-10 rounded-xl my-auto">
-                  <img :src="note.author.avatar_url" />
-                </div>
-              </div>
-              <div class="w-full border-[0.5px] rounded-md border-slate-200">
-                <div class="min-h-14 w-full p-2">
-                  <div class="flex gap-1">
-                    <span class="text-sm font-semibold">{{
-                      note.author.name
-                    }}</span>
-
-                    <span class="text-slate-500 text-sm"
-                      >@{{ note.author.username }}</span
-                    >
-                    <span class="text-sm text-slate-500 align-middle h-auto">
-                      <p>-</p>
-                    </span>
-                    <span class="text-sm text-slate-500">
-                      {{ moment(note.created_at).fromNow() }}
-                    </span>
+            <div v-else>
+              <div class="my-4 flex gap-5" v-if="note.visible">
+                <div class="avatar">
+                  <div class="max-h-10 w-10 rounded-xl my-auto">
+                    <img :src="note.author.avatar_url" />
                   </div>
-                  <p class="text-sm text-slate-600">{{ note.body }}</p>
+                </div>
+                <div class="w-full border-[0.5px] rounded-md border-slate-200">
+                  <div class="min-h-14 w-full p-2">
+                    <div class="flex gap-1">
+                      <span class="text-sm font-semibold">{{
+                        note.author.name
+                      }}</span>
+
+                      <span class="text-slate-500 text-sm"
+                        >@{{ note.author.username }}</span
+                      >
+                      <span class="text-sm text-slate-500 align-middle h-auto">
+                        <p>-</p>
+                      </span>
+                      <span class="text-sm text-slate-500">
+                        {{ moment(note.created_at).fromNow() }}
+                      </span>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                      {{ note.body }}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
