@@ -7,8 +7,15 @@ import {
   GlobeAltIcon,
   ChatBubbleLeftEllipsisIcon,
 } from '@heroicons/vue/24/outline'
+import { UserCircleIcon } from '@heroicons/vue/24/solid'
 import TipTap from './TipTap.vue'
 import moment from 'moment'
+import {
+  extractYamlFromString,
+  isYamlData,
+  parseYAMLWithoutSpaces,
+  extractBodyFromYaml,
+} from '../utils/yamlDataExtraction'
 
 const project = reactive([])
 const issue = reactive([])
@@ -93,9 +100,45 @@ onMounted(() => {
         </h2>
         <div v-if="store.state.notes.length">
           <div v-for="note in store.state.notes[0]" :key="note.id">
-            <div class="my-4 flex gap-5">
+            <div v-if="isYamlData(note.body)" class="my-4 flex gap-5">
               <div class="avatar">
-                <div class="max-h-10 w-10 rounded-xl">
+                <div class="max-h-10 w-10 rounded-xl my-auto">
+                  <user-circle-icon />
+                </div>
+              </div>
+              <div class="w-full border-[0.5px] rounded-md border-slate-200">
+                <div class="min-h-14 w-full p-2">
+                  <div class="flex gap-1">
+                    <span class="text-sm font-semibold"
+                      >@{{
+                        parseYAMLWithoutSpaces(extractYamlFromString(note.body))
+                          .tenant
+                      }}</span
+                    >
+
+                    <span class="text-slate-500 text-sm"
+                      >@{{
+                        parseYAMLWithoutSpaces(extractYamlFromString(note.body))
+                          .author
+                      }}</span
+                    >
+                    <span class="text-sm text-slate-500 align-middle h-auto">
+                      <p>-</p>
+                    </span>
+                    <span class="text-sm text-slate-500">
+                      {{ moment(note.created_at).fromNow() }}
+                    </span>
+                  </div>
+                  <p class="text-sm text-slate-600">
+                    {{ extractBodyFromYaml(note.body) }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div v-else class="my-4 flex gap-5">
+              <div class="avatar">
+                <div class="max-h-10 w-10 rounded-xl my-auto">
                   <img :src="note.author.avatar_url" />
                 </div>
               </div>
@@ -105,6 +148,7 @@ onMounted(() => {
                     <span class="text-sm font-semibold">{{
                       note.author.name
                     }}</span>
+
                     <span class="text-slate-500 text-sm"
                       >@{{ note.author.username }}</span
                     >
@@ -124,11 +168,6 @@ onMounted(() => {
             <tip-tap :issueLink="issue[0]._links.notes" />
           </div>
         </div>
-        <!-- <div v-else>
-          <div class="h-60 flex justify-center align-middle">
-            <span class="loading loading-bars loading-lg"></span>
-          </div>
-        </div> -->
         <div v-else class="mt-5">
           <div
             class="flex flex-row gap-10 w-full mb-5"

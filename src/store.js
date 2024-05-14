@@ -84,17 +84,24 @@ export default {
         console.log(error)
       }
     },
-    async setNote(comment, projectId, issueIId, issueLink) {
+    async setNote(comment, projectId, issueIId, issueLink, frontMatter) {
       try {
         state.loading = true
+        // console.log('COMMENT: ', projectId, issueIId, issueLink)
+        // return
         await fetch(
           `https://gitlab.com/api/v4/projects/${projectId}/issues/${issueIId}/notes`,
           {
             headers,
             method: 'POST',
-            body: JSON.stringify({
-              body: comment,
-            }),
+            body:
+              frontMatter.length > 0
+                ? JSON.stringify({
+                    body: `--- ${frontMatter} --- ${comment}`,
+                  })
+                : JSON.stringify({
+                    body: comment,
+                  }),
           }
         )
           .then(async (res) => {

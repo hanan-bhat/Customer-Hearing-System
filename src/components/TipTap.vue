@@ -15,9 +15,11 @@ import CodeIcon from 'vue-material-design-icons/CodeTags.vue'
 import HorizontalRuleIcon from 'vue-material-design-icons/Minus.vue'
 import UndoIcon from 'vue-material-design-icons/Undo.vue'
 import RedoIcon from 'vue-material-design-icons/Redo.vue'
-import { getCurrentInstance, onUpdated, ref } from 'vue'
+import { getCurrentInstance, onMounted, onUpdated, ref } from 'vue'
 import store from '@/store'
 import router from '@/router'
+
+let frontMatter = ref('')
 
 const props = defineProps({
   modelValue: String,
@@ -46,8 +48,20 @@ const editor = useEditor({
   },
 })
 const getComment = () => {
-  store.actions.setNote(commentData, projectID, iid, props.issueLink)
+  store.actions.setNote(
+    commentData,
+    projectID,
+    iid,
+    props.issueLink,
+    frontMatter.value.trim()
+  )
 }
+
+onMounted(() => {
+  frontMatter.value = `
+    tenant: ${'iRidge inc'}, author: ${'Motohiro Ueki'}
+  `
+})
 </script>
 
 <template>

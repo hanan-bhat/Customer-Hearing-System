@@ -1,7 +1,7 @@
 <script setup>
 import Project from './Project.vue'
 import { onMounted, reactive } from 'vue'
-import { RouterLink, useRoute, useRouter} from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import {
   LockClosedIcon,
   GlobeAltIcon,
@@ -10,11 +10,10 @@ import {
 import store from '@/store'
 import moment from 'moment'
 
-const route = useRoute();
-const router = useRouter(); 
-    const account = route.query.account;
-    const projectParam = route.query.project || 'New Proj';
-
+const route = useRoute()
+const router = useRouter()
+const account = route.query.account
+const projectParam = route.query.project || 'New Proj'
 
 const projects = reactive([])
 const issues = reactive([])
@@ -22,32 +21,34 @@ const issues = reactive([])
 const toolTipForPrivate = 'Hello World'
 
 onMounted(async () => {
-      // Assuming store.actions.getAllProjects() returns a Promise
-  
-      await store.actions.getAllProjects();
+  // Assuming store.actions.getAllProjects() returns a Promise
 
+  await store.actions.getAllProjects()
 
-const filteredProject = store.state.projects[0].find(project => {
-  const projectNameWithoutSpaces = project.name?.replace(/\s+/g, '').toLowerCase();
-  const projectParamWithoutSpaces = projectParam?.replace(/\s+/g, '').toLowerCase();
-  
-  return projectNameWithoutSpaces === projectParamWithoutSpaces;
-});
+  const filteredProject = store.state.projects[0].find((project) => {
+    const projectNameWithoutSpaces = project.name
+      ?.replace(/\s+/g, '')
+      .toLowerCase()
+    const projectParamWithoutSpaces = projectParam
+      ?.replace(/\s+/g, '')
+      .toLowerCase()
 
+    return projectNameWithoutSpaces === projectParamWithoutSpaces
+  })
 
-
-
-      if (filteredProject) {
-        // Navigate to the project page with the ID as query parameter
-        router.push({
-          path: `/project/${filteredProject.name.toLowerCase().replace(/\s+/g, '-')}`,
-          query: { id: filteredProject.id }
-        });
-        store.actions.getIssues(filteredProject._links.issues)
-      } else {
-        console.error('Project not found');
-      }
-    });
+  if (filteredProject) {
+    // Navigate to the project page with the ID as query parameter
+    router.push({
+      path: `/project/${filteredProject.name
+        .toLowerCase()
+        .replace(/\s+/g, '-')}`,
+      query: { id: filteredProject.id },
+    })
+    store.actions.getIssues(filteredProject._links.issues)
+  } else {
+    console.error('Project not found')
+  }
+})
 </script>
 
 <template>
@@ -143,7 +144,7 @@ const filteredProject = store.state.projects[0].find(project => {
           </tbody>
         </table>
       </div> -->
-      <div >
+      <div>
         <div
           class="flex flex-row gap-10 w-full mb-5"
           v-for="index in 5"
