@@ -88,7 +88,7 @@ export default {
               headers,
             }).then(async (res) => {
               const response = await res.json()
-              if (response.length > 0) {
+              if (response[0]?.name == 'eye') {
                 const noteWithEye = state.notes[0].find(
                   (elm) => elm.id === note.id
                 )
