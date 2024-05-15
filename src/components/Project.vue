@@ -66,7 +66,7 @@ onMounted(() => {
             v-if="project[0].visibility == 'private'"
             data-tip="hello"
           />
-          <globe-alt-icon class="icon w-4" v-else />
+          <globe-alt-icon class="icon w-4 mt-2 lg:tooltip" v-else />
         </div>
       </div>
       <div>
